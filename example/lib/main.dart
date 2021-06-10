@@ -29,8 +29,8 @@ import 'component/json_result_page.dart';
 void main() {
   // final proxy = '192.168.199.68:2333';
   DdTaokeUtil.instance
-      .init('http://192.168.100.15', '8088', proxy: ''); // 我测试用的
-  // DdTaokeUtil.instance.init('http://itbug.shop', '8088', proxy: ''); // 服务器的接口
+      .init('http://itbug.shop', '80', proxy: ''); // 我测试用的
+  // DdTaokeUtil.instance.init('http://itbug.shop', '80', proxy: ''); // 服务器的接口
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
     home: MyApp(),
@@ -209,6 +209,13 @@ class MyApp extends StatelessWidget {
                 toJsonView(result);
               }
             }),
+
+
+            MyButton('搜索建议', onTap: () async {
+            final resul =  await DdTaokeSdk.instance.getSuggest();
+            print(resul.length);
+            })
+
           ],
         ),
       ),
