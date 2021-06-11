@@ -20,6 +20,7 @@ import 'package:dd_taoke_sdk/params/wechat_param.dart';
 import 'package:dd_taoke_sdk_example/component/buttom.dart';
 import 'package:dd_taoke_sdk_example/component/input_model.dart';
 import 'package:dd_taoke_sdk_example/test/hotday_page.dart';
+import 'package:dio/adapter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -29,7 +30,13 @@ import 'component/json_result_page.dart';
 void main() {
   // final proxy = '192.168.199.68:2333';
   DdTaokeUtil.instance
-      .init('http://itbug.shop', '80', proxy: ''); // 我测试用的
+      .init('http://localhost', '80', proxy: '',onStart: (dio){
+    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client){
+      client.badCertificateCallback=(cert, host, port){
+        return true;
+      };
+    };
+  }); // 我测试用的
   // DdTaokeUtil.instance.init('http://itbug.shop', '80', proxy: ''); // 服务器的接口
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,

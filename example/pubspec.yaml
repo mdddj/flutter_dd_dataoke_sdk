@@ -21,6 +21,7 @@ dependencies:
     # the parent directory to use the current plugin's version.
     path: ../
   get: any
+  dio: any
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

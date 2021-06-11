@@ -16,11 +16,14 @@ class DdTaokeUtil {
   static var _port = '';
   static var _proxy = '';
 
+  OnRequestStart? _onStart;
+
   /// 初始化服务器地址和端口
-  void init(String host, String port, {String? proxy}) {
+  void init(String host, String port, {String? proxy,OnRequestStart? onStart}) {
     _ip = host;
     _port = port;
     if (proxy != null) _proxy = proxy;
+    _onStart = onStart;
   }
 
   ///发起http请求
@@ -32,10 +35,12 @@ class DdTaokeUtil {
   ///error 请求错误回传
   ///
   Future<String> get(String url,
-      {Map<String, dynamic>? data, ApiError? error}) async {
+      {Map<String, dynamic>? data, ApiError? error,OnRequestStart? onStart}) async {
     var _dio = createInstance()!;
     if (_proxy.isNotEmpty) addProxy(_dio, _proxy);
 
+    _onStart?.call(_dio); // 全局的
+    onStart?.call(_dio); // 局部的
     try {
       final response = await _dio.get<String>(url, queryParameters: data);
       if (response.statusCode == 200 && response.data != null) {
@@ -96,3 +101,6 @@ void addProxy(Dio dio, String ip) {
     }
   }
 }
+
+/// 发起请求前做的一些事
+typedef OnRequestStart = void Function(Dio dio);

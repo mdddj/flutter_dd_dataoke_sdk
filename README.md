@@ -184,6 +184,6 @@ class MyApp extends StatelessWidget {
 ```
 
 ```
-flutter packages pub publish --dry-run --server=https://pub.dartlang.org
+![img_1.png](img_1.png)
 flutter packages pub publish --server=https://pub.dartlang.org
 ```
