@@ -1,6 +1,6 @@
 name: dd_taoke_sdk
 description: ddshop 的 sdk
-version: 1.0.7
+version: 1.0.8
 homepage: https://github.com/mdddj/flutter_dd_dataoke_sdk
 
 environment:

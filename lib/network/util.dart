@@ -43,7 +43,7 @@ class DdTaokeUtil {
     var _dio = createInstance()!;
     if (_proxy.isNotEmpty) addProxy(_dio, _proxy);
     if (isTaokeApi ?? true) {
-      url += tkApi;
+      url = tkApi+url;
     }
 
     _onStart?.call(_dio); // 全局的
