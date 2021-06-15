@@ -38,9 +38,13 @@ class DdTaokeUtil {
   Future<String> get(String url,
       {Map<String, dynamic>? data,
       ApiError? error,
-      OnRequestStart? onStart}) async {
+      OnRequestStart? onStart,
+      bool? isTaokeApi}) async {
     var _dio = createInstance()!;
     if (_proxy.isNotEmpty) addProxy(_dio, _proxy);
+    if (isTaokeApi ?? true) {
+      url += tkApi;
+    }
 
     _onStart?.call(_dio); // 全局的
     onStart?.call(_dio); // 局部的
@@ -73,7 +77,7 @@ class DdTaokeUtil {
       {Map<String, dynamic>? data,
       VoidCallback? onStart,
       ApiError? error}) async {
-    var _dio = createInstance(absPath: '')!;
+    var _dio = createInstance()!;
     if (_proxy.isNotEmpty) addProxy(_dio, _proxy);
 
     _onStart?.call(_dio);
@@ -113,9 +117,9 @@ class DdTaokeUtil {
   }
 
   /// 创建dio实例
-  Dio? createInstance({String? absPath}) {
+  Dio? createInstance() {
     if (dio == null) {
-      final url = '$_ip:$_port' + (absPath ?? tkApi);
+      final url = '$_ip:$_port';
       BaseOptions options = BaseOptions(baseUrl: url, connectTimeout: 20000);
       dio = Dio(options);
     }
