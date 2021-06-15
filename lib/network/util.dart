@@ -19,7 +19,8 @@ class DdTaokeUtil {
   OnRequestStart? _onStart;
 
   /// 初始化服务器地址和端口
-  void init(String host, String port, {String? proxy,OnRequestStart? onStart}) {
+  void init(String host, String port,
+      {String? proxy, OnRequestStart? onStart}) {
     _ip = host;
     _port = port;
     if (proxy != null) _proxy = proxy;
@@ -35,7 +36,9 @@ class DdTaokeUtil {
   ///error 请求错误回传
   ///
   Future<String> get(String url,
-      {Map<String, dynamic>? data, ApiError? error,OnRequestStart? onStart}) async {
+      {Map<String, dynamic>? data,
+      ApiError? error,
+      OnRequestStart? onStart}) async {
     var _dio = createInstance()!;
     if (_proxy.isNotEmpty) addProxy(_dio, _proxy);
 
@@ -43,6 +46,41 @@ class DdTaokeUtil {
     onStart?.call(_dio); // 局部的
     try {
       final response = await _dio.get<String>(url, queryParameters: data);
+      if (response.statusCode == 200 && response.data != null) {
+        final result = ddTaokeResultFromJson(response.data!);
+        if (result.state == 200) {
+          if (result.data != null) {
+            return result.data!;
+          }
+          return '';
+        } else {
+          errorHandle(error, result.state, result.message);
+          return '';
+        }
+      }
+    } on DioError catch (e) {
+      if (e.response != null) {
+        errorHandle(error, e.response!.statusCode, e.response!.statusMessage);
+      }
+      errorHandle(error, 500, '${e.toString()}');
+    }
+
+    return '';
+  }
+
+  /// POST 请求
+  Future<String> post(String url,
+      {Map<String, dynamic>? data,
+      VoidCallback? onStart,
+      ApiError? error}) async {
+    var _dio = createInstance(absPath: '')!;
+    if (_proxy.isNotEmpty) addProxy(_dio, _proxy);
+
+    _onStart?.call(_dio);
+    onStart?.call();
+
+    try {
+      final response = await _dio.post(url, data: data);
       if (response.statusCode == 200 && response.data != null) {
         final result = ddTaokeResultFromJson(response.data!);
         if (result.state == 200) {
@@ -75,9 +113,9 @@ class DdTaokeUtil {
   }
 
   /// 创建dio实例
-  Dio? createInstance() {
+  Dio? createInstance({String? absPath}) {
     if (dio == null) {
-      final url = '$_ip:$_port$tkApi';
+      final url = '$_ip:$_port' + (absPath ?? tkApi);
       BaseOptions options = BaseOptions(baseUrl: url, connectTimeout: 20000);
       dio = Dio(options);
     }
