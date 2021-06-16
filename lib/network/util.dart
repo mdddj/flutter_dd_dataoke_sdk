@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dd_taoke_sdk/model/result.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
@@ -46,6 +48,12 @@ class DdTaokeUtil {
       url = tkApi + url;
     }
 
+    (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+        (HttpClient client) {
+      client.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+      return client;
+    };
     _onStart?.call(_dio); // 全局的
     onStart?.call(_dio); // 局部的
     try {
@@ -79,7 +87,12 @@ class DdTaokeUtil {
       ApiError? error}) async {
     var _dio = createInstance()!;
     if (_proxy.isNotEmpty) addProxy(_dio, _proxy);
-
+    (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+        (HttpClient client) {
+      client.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+      return client;
+    };
     _onStart?.call(_dio);
     onStart?.call(_dio);
 
