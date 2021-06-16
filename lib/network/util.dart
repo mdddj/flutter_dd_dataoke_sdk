@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dd_taoke_sdk/model/result.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
@@ -77,23 +75,23 @@ class DdTaokeUtil {
   /// POST 请求
   Future<String> post(String url,
       {Map<String, dynamic>? data,
-      VoidCallback? onStart,
+        OnRequestStart? onStart,
       ApiError? error}) async {
     var _dio = createInstance()!;
     if (_proxy.isNotEmpty) addProxy(_dio, _proxy);
 
     _onStart?.call(_dio);
-    onStart?.call();
+    onStart?.call(_dio);
 
     try {
       final response = await _dio.request(url,
           data: data,
           options: Options(
-              method: 'POST',
-              followRedirects: false,
-              validateStatus: (status) {
-                return status != null && status < 500;
-              }));
+            method: 'POST',
+            followRedirects: false,
+            contentType: 'application/json'
+          ));
+
       if (response.statusCode == 200 && response.data != null) {
         final result = ddTaokeResultFromJson(response.data!);
         if (result.state == 200) {
