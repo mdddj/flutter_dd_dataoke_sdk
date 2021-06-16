@@ -18,6 +18,9 @@ class DdTaokeUtil {
   static var _port = '';
   static var _proxy = '';
 
+  String get ip => _ip;
+  String get port => _port;
+
   OnRequestStart? _onStart;
 
   /// 初始化服务器地址和端口
