@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dd_taoke_sdk/model/result.dart';
@@ -109,7 +110,8 @@ class DdTaokeUtil {
           ));
 
       if (response.statusCode == 200 && response.data != null) {
-        final result = ddTaokeResultFromJson(response.data!);
+        final _data = response.data is Map<String,dynamic>  ? jsonEncode(response.data) : response.data;
+        final result = ddTaokeResultFromJson(_data);
         if (result.state == 200) {
           if (result.data != null) {
             return result.data!;
