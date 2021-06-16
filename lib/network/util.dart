@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dd_taoke_sdk/model/result.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
@@ -43,7 +45,7 @@ class DdTaokeUtil {
     var _dio = createInstance()!;
     if (_proxy.isNotEmpty) addProxy(_dio, _proxy);
     if (isTaokeApi ?? true) {
-      url = tkApi+url;
+      url = tkApi + url;
     }
 
     _onStart?.call(_dio); // 全局的
@@ -84,7 +86,14 @@ class DdTaokeUtil {
     onStart?.call();
 
     try {
-      final response = await _dio.request(url, data: data,options: Options(method: 'POST',followRedirects: false ));
+      final response = await _dio.request(url,
+          data: data,
+          options: Options(
+              method: 'POST',
+              followRedirects: false,
+              validateStatus: (status) {
+                return status != null && status < 500;
+              }));
       if (response.statusCode == 200 && response.data != null) {
         final result = ddTaokeResultFromJson(response.data!);
         if (result.state == 200) {
