@@ -29,10 +29,11 @@ import 'component/json_result_page.dart';
 
 void main() {
   // final proxy = '192.168.199.68:2333';
-  DdTaokeUtil.instance
-      .init('http://localhost', '80', proxy: '',onStart: (dio){
-    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client){
-      client.badCertificateCallback=(cert, host, port){
+  DdTaokeUtil.instance.init('http://localhost', '80', proxy: '',
+      onStart: (dio) {
+    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+        (client) {
+      client.badCertificateCallback = (cert, host, port) {
         return true;
       };
     };
@@ -211,18 +212,21 @@ class MyApp extends StatelessWidget {
                 title: '请输入活动id',
               ));
               if (activityId != null) {
-                final result =await DdTaokeSdk.instance.getActivityLink(
+                final result = await DdTaokeSdk.instance.getActivityLink(
                     ActivityLinkParam(promotionSceneId: activityId));
                 toJsonView(result);
               }
             }),
-
-
             MyButton('搜索建议', onTap: () async {
-            final resul =  await DdTaokeSdk.instance.getSuggest();
-            print(resul.length);
+              final resul = await DdTaokeSdk.instance.getSuggest();
+              print(resul.length);
+            }),
+            MyButton('登录', onTap: ()async{
+              final result = DdTaokeUtil.instance.post('/api/login',data: {
+                'username': 'admin',
+                'password': '123456'
+              });
             })
-
           ],
         ),
       ),

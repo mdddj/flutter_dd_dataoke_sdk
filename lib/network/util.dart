@@ -84,7 +84,7 @@ class DdTaokeUtil {
     onStart?.call();
 
     try {
-      final response = await _dio.post(url, data: data);
+      final response = await _dio.request(url, data: data,options: Options(method: 'POST',followRedirects: false ));
       if (response.statusCode == 200 && response.data != null) {
         final result = ddTaokeResultFromJson(response.data!);
         if (result.state == 200) {
