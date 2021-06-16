@@ -22,7 +22,7 @@ class DdTaokeResult {
   factory DdTaokeResult.fromJson(Map<String, dynamic> json) => DdTaokeResult(
     state: json["state"],
     message: json["message"],
-    data: json["data"],
+    data: json["data"] is Map<String,dynamic> ? jsonEncode(json['data']) : json['data'],
   );
 
   Map<String, dynamic> toJson() => {
