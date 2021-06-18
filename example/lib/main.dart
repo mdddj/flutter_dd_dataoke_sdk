@@ -29,7 +29,7 @@ import 'component/json_result_page.dart';
 
 void main() {
   // final proxy = '192.168.199.68:2333';
-  DdTaokeUtil.instance.init('http://localhost', '80', proxy: '',
+  DdTaokeUtil.instance.init('https://itbug.shop', '443', proxy: '',
       onStart: (dio) {
     (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
         (client) {
@@ -74,6 +74,7 @@ class MyApp extends StatelessWidget {
             MyButton('品牌列表', onTap: () async {
               final result = await DdTaokeSdk.instance.getBrandList(
                   param: BrandListParam(cid: '2', pageId: '1', pageSize: '20'));
+
               toJsonView(result);
             }),
             MyButton('商品列表', onTap: () async {
@@ -89,7 +90,7 @@ class MyApp extends StatelessWidget {
             MyButton('获取品牌商品', onTap: () async {
               final result = await DdTaokeSdk.instance.getBrandDetail(
                   param: BrandProductParam(
-                      brandId: '3424764', pageSize: '20', pageId: "1"));
+                      brandId: '7951745', pageSize: '20', pageId: "1"));
               toJsonView(result);
             }),
             MyButton('获取详情页面所需数据', onTap: () async {
