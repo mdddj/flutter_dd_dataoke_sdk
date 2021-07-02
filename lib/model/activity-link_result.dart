@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:get/get.dart';
+
 T? asT<T>(dynamic value) {
   if (value is T) {
     return value;
@@ -18,16 +20,20 @@ class ActivityLinkResult {
     required this.pageEndTime,
   });
 
-  factory ActivityLinkResult.fromJson(Map<String, dynamic> jsonRes) =>
-      ActivityLinkResult(
-        terminalType: asT<String>(jsonRes['terminal_type'])!,
-        pageStartTime: asT<String>(jsonRes['page_start_time'])!,
-        pageName: asT<String>(jsonRes['page_name'])!,
-        clickUrl: asT<String>(jsonRes['click_url'])!,
-        tpwd: asT<String>(jsonRes['Tpwd'])!,
-        longTpwd: asT<String>(jsonRes['longTpwd'])!,
-        pageEndTime: asT<String>(jsonRes['page_end_time'])!,
-      );
+  factory ActivityLinkResult.fromJson(Map<String, dynamic> jsonRes) {
+    
+    Get.log(jsonEncode(jsonRes));
+    
+    return  ActivityLinkResult(
+      terminalType: asT<String>(jsonRes['terminal_type']??'')!,
+      pageStartTime: asT<String>(jsonRes['page_start_time']??'')!,
+      pageName: asT<String>(jsonRes['page_name']??'')!,
+      clickUrl: asT<String>(jsonRes['click_url'])!,
+      tpwd: asT<String>(jsonRes['Tpwd'])!,
+      longTpwd: asT<String>(jsonRes['longTpwd'])!,
+      pageEndTime: asT<String>(jsonRes['page_end_time']??'')!,
+    );
+  }
 
   String terminalType;
   String pageStartTime;
