@@ -5,6 +5,7 @@ import 'package:dd_taoke_sdk/model/result.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:logger/logger.dart';
 
 class DdTaokeUtil {
   DdTaokeUtil._();
@@ -18,15 +19,17 @@ class DdTaokeUtil {
   static var _ip = '';
   static var _port = '';
   static var _proxy = '';
+  static var _print = true;
 
   String get ip => _ip;
+
   String get port => _port;
 
   OnRequestStart? _onStart;
 
   /// 初始化服务器地址和端口
-  void init(String host, String port,
-      {String? proxy, OnRequestStart? onStart}) {
+  void init(String host, String port, {String? proxy, OnRequestStart? onStart, bool debug = true}) {
+    _print = debug;
     _ip = host;
     _port = port;
     if (proxy != null) _proxy = proxy;
@@ -41,22 +44,16 @@ class DdTaokeUtil {
   ///
   ///error 请求错误回传
   ///
-  Future<String> get(String url,
-      {Map<String, dynamic>? data,
-      ApiError? error,
-      OnRequestStart? onStart,
-      bool? isTaokeApi}) async {
+  Future<String> get(String url, {Map<String, dynamic>? data, ApiError? error, OnRequestStart? onStart, bool? isTaokeApi}) async {
     var _dio = createInstance()!;
     if (_proxy.isNotEmpty) addProxy(_dio, _proxy);
     if (isTaokeApi ?? true) {
       url = tkApi + url;
     }
 
-    if(!kIsWeb){
-      (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-          (HttpClient client) {
-        client.badCertificateCallback =
-            (X509Certificate cert, String host, int port) => true;
+    if (!kIsWeb) {
+      (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (HttpClient client) {
+        client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
         return client;
       };
     }
@@ -69,6 +66,11 @@ class DdTaokeUtil {
         final result = ddTaokeResultFromJson(response.data!);
         if (result.state == 200) {
           if (result.data != null) {
+            try {
+              if(_print){
+                Logger().i(jsonDecode(result.data!));
+              }
+            } catch (_) {}
             return result.data!;
           }
           return '';
@@ -88,17 +90,12 @@ class DdTaokeUtil {
   }
 
   /// POST 请求
-  Future<String> post(String url,
-      {Map<String, dynamic>? data,
-        OnRequestStart? onStart,
-      ApiError? error}) async {
+  Future<String> post(String url, {Map<String, dynamic>? data, OnRequestStart? onStart, ApiError? error}) async {
     var _dio = createInstance()!;
     if (_proxy.isNotEmpty) addProxy(_dio, _proxy);
-    if(!kIsWeb){
-      (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-          (HttpClient client) {
-        client.badCertificateCallback =
-            (X509Certificate cert, String host, int port) => true;
+    if (!kIsWeb) {
+      (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (HttpClient client) {
+        client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
         return client;
       };
     }
@@ -106,16 +103,10 @@ class DdTaokeUtil {
     onStart?.call(_dio);
 
     try {
-      final response = await _dio.request(url,
-          data: data,
-          options: Options(
-            method: 'POST',
-            followRedirects: false,
-            contentType: 'application/json'
-          ));
+      final response = await _dio.request(url, data: data, options: Options(method: 'POST', followRedirects: false, contentType: 'application/json'));
 
       if (response.statusCode == 200 && response.data != null) {
-        final _data = response.data is Map<String,dynamic>  ? jsonEncode(response.data) : response.data;
+        final _data = response.data is Map<String, dynamic> ? jsonEncode(response.data) : response.data;
         final result = ddTaokeResultFromJson(_data);
         if (result.state == 200) {
           if (result.data != null) {
