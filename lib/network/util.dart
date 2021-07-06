@@ -44,7 +44,7 @@ class DdTaokeUtil {
   ///
   ///error 请求错误回传
   ///
-  Future<String> get(String url, {Map<String, dynamic>? data, ApiError? error, OnRequestStart? onStart, bool? isTaokeApi}) async {
+  Future<String> get(String url, {Map<String, dynamic>? data, ApiError? error, OnRequestStart? onStart, bool? isTaokeApi,ResultDataMapHandle? mapData}) async {
     var _dio = createInstance()!;
     if (_proxy.isNotEmpty) addProxy(_dio, _proxy);
     if (isTaokeApi ?? true) {
@@ -70,6 +70,7 @@ class DdTaokeUtil {
               if(_print){
                 Logger().i(jsonDecode(result.data!));
               }
+              mapData?.call(jsonDecode(result.data!));
             } catch (_) {}
             return result.data!;
           }
@@ -167,3 +168,4 @@ void addProxy(Dio dio, String ip) {
 
 /// 发起请求前做的一些事
 typedef OnRequestStart = void Function(Dio dio);
+typedef ResultDataMapHandle = void Function(Map<String,dynamic> map);
