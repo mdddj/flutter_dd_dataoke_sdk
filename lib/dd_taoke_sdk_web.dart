@@ -12,7 +12,7 @@ import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 class DdTaokeSdkWeb {
   static void registerWith(Registrar registrar) {
     final MethodChannel channel = MethodChannel(
-      'dd_taoke_sdk',
+      'flutter_dd_dataoke_sdk',
       const StandardMethodCodec(),
       registrar.messenger,
     );
@@ -28,7 +28,8 @@ class DdTaokeSdkWeb {
     switch (call.method) {
       case 'getPlatformVersion':
         return getPlatformVersion();
-        break;
+      case 'isWeChatBrowser':
+        return isWeChatBrowser();
       default:
         throw PlatformException(
           code: 'Unimplemented',
@@ -41,5 +42,16 @@ class DdTaokeSdkWeb {
   Future<String> getPlatformVersion() {
     final version = html.window.navigator.userAgent;
     return Future.value(version);
+  }
+
+  Future<bool> isWeChatBrowser(){
+    final version = html.window.navigator.userAgent.matchAsPrefix('/MicroMessenger/i');
+    if(version!=null){
+      final val = version[0];
+      print('----$val');
+      return Future.value(val=='micromessenger');
+    }
+    return Future.value(false);
+
   }
 }

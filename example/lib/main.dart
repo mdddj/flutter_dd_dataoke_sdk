@@ -1,5 +1,6 @@
 import 'package:dd_taoke_sdk/constant/sort.dart';
 import 'package:dd_taoke_sdk/dd_taoke_sdk.dart';
+import 'package:dd_taoke_sdk/flutter_dd_dataoke_sdk.dart';
 import 'package:dd_taoke_sdk/network/util.dart';
 import 'package:dd_taoke_sdk/params/activity_link_param.dart';
 import 'package:dd_taoke_sdk/params/brand_param.dart';
@@ -21,6 +22,7 @@ import 'package:dd_taoke_sdk_example/component/buttom.dart';
 import 'package:dd_taoke_sdk_example/component/input_model.dart';
 import 'package:dd_taoke_sdk_example/test/hotday_page.dart';
 import 'package:dio/adapter.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -227,6 +229,14 @@ class MyApp extends StatelessWidget {
                 'username': 'admin',
                 'password': '123456'
               });
+            }),
+            MyButton('判断浏览器版本', onTap: ()async{
+              if(kIsWeb){
+               final version = await  FlutterDdDataokeSdk.platformVersion;
+               final isWeChat =  await FlutterDdDataokeSdk.isWebChatBrowser;
+               print(isWeChat);
+               Get.dialog(AlertDialog(content: Text(version),));
+              }
             })
           ],
         ),

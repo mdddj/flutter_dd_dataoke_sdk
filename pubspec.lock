@@ -87,7 +87,7 @@ packages:
     source: hosted
     version: "4.0.0"
   js:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: js
       url: "https://pub.flutter-io.cn"
