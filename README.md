@@ -8,7 +8,7 @@
 # 1.初始化
 在main函数中添加如下代码
 ```dart
- DdTaokeUtil.instance.init('http://itbug.shop', '8088',proxy: '');
+ DdTaokeUtil.instance.init('https://itbug.shop', '443',proxy: '');
 ```
 
 # 2.使用
