@@ -91,7 +91,7 @@ class DdTaokeUtil {
   }
 
   /// POST 请求
-  Future<String> post(String url, {Map<String, dynamic>? data, OnRequestStart? onStart, ApiError? error}) async {
+  Future<String> post(String url, {Map<String, dynamic>? data, OnRequestStart? onStart, ApiError? error, bool? isTaokeApi}) async {
     var _dio = createInstance()!;
     if (_proxy.isNotEmpty) addProxy(_dio, _proxy);
     if (!kIsWeb) {
@@ -102,6 +102,10 @@ class DdTaokeUtil {
     }
     _onStart?.call(_dio);
     onStart?.call(_dio);
+
+    if (isTaokeApi ?? true) {
+      url = tkApi + url;
+    }
 
     try {
       final response = await _dio.request(url, data: data, options: Options(method: 'POST', followRedirects: false, contentType: 'application/json'));

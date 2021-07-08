@@ -7,8 +7,10 @@
 
 # 1.初始化
 在main函数中添加如下代码
+`debug` : true - 是否在控制台打印服务器返回数据 , false 隐藏
+
 ```dart
- DdTaokeUtil.instance.init('https://itbug.shop', '443',proxy: '');
+ DdTaokeUtil.instance.init('https://itbug.shop', '443',proxy: '',debug:false);
 ```
 
 # 2.使用
