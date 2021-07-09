@@ -44,7 +44,7 @@ class DdTaokeUtil {
   ///
   ///error 请求错误回传
   ///
-  Future<String> get(String url, {Map<String, dynamic>? data, ApiError? error, OnRequestStart? onStart, bool? isTaokeApi,ResultDataMapHandle? mapData}) async {
+  Future<String> get(String url, {Map<String, dynamic>? data, ApiError? error, OnRequestStart? onStart, bool? isTaokeApi,ResultDataMapHandle? mapData,CancelToken? cancelToken}) async {
     var _dio = createInstance()!;
     if (_proxy.isNotEmpty) addProxy(_dio, _proxy);
     if (isTaokeApi ?? true) {
@@ -61,7 +61,7 @@ class DdTaokeUtil {
     _onStart?.call(_dio); // 全局的
     onStart?.call(_dio); // 局部的
     try {
-      final response = await _dio.get<String>(url, queryParameters: data);
+      final response = await _dio.get<String>(url, queryParameters: data,cancelToken: cancelToken);
       if (response.statusCode == 200 && response.data != null) {
         final result = ddTaokeResultFromJson(response.data!);
         if (result.state == 200) {
@@ -108,7 +108,7 @@ class DdTaokeUtil {
     }
 
     try {
-      final response = await _dio.request(url, data: data, options: Options(method: 'POST', followRedirects: false, contentType: 'application/json'));
+      final response = await _dio.post(url, data: data, options: Options(method: 'POST', followRedirects: false, contentType: 'application/json'));
 
       if (response.statusCode == 200 && response.data != null) {
         final _data = response.data is Map<String, dynamic> ? jsonEncode(response.data) : response.data;

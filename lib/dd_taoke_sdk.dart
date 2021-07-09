@@ -22,6 +22,7 @@ import 'package:dd_taoke_sdk/params/super_search_param.dart';
 import 'package:dd_taoke_sdk/params/taobao_oneprice_param.dart';
 import 'package:dd_taoke_sdk/params/top_param.dart';
 import 'package:dd_taoke_sdk/params/wechat_param.dart';
+import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
 import 'model/activity-link_result.dart';
@@ -77,9 +78,9 @@ class DdTaokeSdk {
 
   /// 获取商品列表
   Future<ProductListResult?> getProducts(
-      {required ProductListParam param, ApiError? error}) async {
+      {required ProductListParam param, ApiError? error,CancelToken? cancelToken}) async {
     final response =
-        await util.get('/goods', data: param.toJson(), error: error);
+        await util.get('/goods', data: param.toJson(), error: error,cancelToken: cancelToken);
     return response.isNotEmpty ? productListFromJson(response) : null;
   }
 
