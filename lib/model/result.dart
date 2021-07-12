@@ -105,19 +105,17 @@ class ErrorRoot {
       }
     }
 
-    final List<Arguments>? arguments = jsonRes['arguments'] is List ? <Arguments>[] : null;
-    if (arguments != null) {
-      for (final dynamic item in jsonRes['arguments']!) {
-        if (item != null) {
-          tryCatch(() {
-            arguments.add(Arguments.fromJson(asT<Map<String, dynamic>>(item)!));
-          });
-        }
+    final List<Arguments> arguments = jsonRes['arguments'] is List ? <Arguments>[] : <Arguments>[];
+    for (final dynamic item in jsonRes['arguments']!) {
+      if (item != null) {
+        tryCatch(() {
+          arguments.add(Arguments.fromJson(asT<Map<String, dynamic>>(item)!));
+        });
       }
     }
     return ErrorRoot(
       codes: codes!,
-      arguments: arguments!,
+      arguments: arguments,
       defaultMessage: asT<String>(jsonRes['defaultMessage'])!,
       objectName: asT<String>(jsonRes['objectName'])!,
       field: asT<String>(jsonRes['field'])!,
