@@ -44,7 +44,8 @@ class DdTaokeUtil {
   ///
   ///error 请求错误回传
   ///
-  Future<String> get(String url, {Map<String, dynamic>? data, ApiError? error, OnRequestStart? onStart, bool? isTaokeApi,ResultDataMapHandle? mapData,CancelToken? cancelToken}) async {
+  Future<String> get(String url,
+      {Map<String, dynamic>? data, ApiError? error, OnRequestStart? onStart, bool? isTaokeApi, ResultDataMapHandle? mapData, CancelToken? cancelToken, ValueChanged<dynamic>? otherDataHandle}) async {
     var _dio = createInstance()!;
     if (_proxy.isNotEmpty) addProxy(_dio, _proxy);
     if (isTaokeApi ?? true) {
@@ -61,16 +62,17 @@ class DdTaokeUtil {
     _onStart?.call(_dio); // 全局的
     onStart?.call(_dio); // 局部的
     try {
-      final response = await _dio.get<String>(url, queryParameters: data,cancelToken: cancelToken);
+      final response = await _dio.get<String>(url, queryParameters: data, cancelToken: cancelToken);
       if (response.statusCode == 200 && response.data != null) {
         final result = ddTaokeResultFromJson(response.data!);
         if (result.state == 200) {
           if (result.data != null) {
             try {
-              if(_print){
+              if (_print) {
                 Logger().i(jsonDecode(result.data!));
               }
               mapData?.call(jsonDecode(result.data!));
+              otherDataHandle?.call(result.otherData);
             } catch (_) {}
             return result.data!;
           }
@@ -91,7 +93,7 @@ class DdTaokeUtil {
   }
 
   /// POST 请求
-  Future<String> post(String url, {Map<String, dynamic>? data, OnRequestStart? onStart, ApiError? error, bool? isTaokeApi}) async {
+  Future<String> post(String url, {Map<String, dynamic>? data, OnRequestStart? onStart, ApiError? error, bool? isTaokeApi, ValueChanged<dynamic>? otherDataHandle}) async {
     var _dio = createInstance()!;
     if (_proxy.isNotEmpty) addProxy(_dio, _proxy);
     if (!kIsWeb) {
@@ -172,4 +174,4 @@ void addProxy(Dio dio, String ip) {
 
 /// 发起请求前做的一些事
 typedef OnRequestStart = void Function(Dio dio);
-typedef ResultDataMapHandle = void Function(Map<String,dynamic> map);
+typedef ResultDataMapHandle = void Function(Map<String, dynamic> map);
