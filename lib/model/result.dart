@@ -11,24 +11,19 @@ DdTaokeResult ddTaokeResultFromJson(String str) => DdTaokeResult.fromJson(json.d
 String ddTaokeResultToJson(DdTaokeResult data) => json.encode(data.toJson());
 
 class DdTaokeResult {
-  DdTaokeResult({this.state, this.message, this.data, this.errors});
+  DdTaokeResult({this.state, this.message, this.data, this.otherData});
 
   int? state;
   String? message;
   String? data;
-  List<ErrorRoot>? errors;
+  dynamic otherData;
 
   factory DdTaokeResult.fromJson(Map<String, dynamic> json) {
-    var _errors = <ErrorRoot>[];
-    if (json['data'] is List<dynamic>) {
-      _errors = List<ErrorRoot>.from((json['data'] as List<dynamic>).map((e) => ErrorRoot.fromJson(e))).toList();
-    }
-
     return DdTaokeResult(
-        state: json["state"], message: json["message"], data: json["data"] is Map<String, dynamic> ? jsonEncode(json['data']) : (json['data'] is String ? json['data'] : ''), errors: _errors);
+        state: json["state"], message: json["message"], data: json["data"] is Map<String, dynamic> ? jsonEncode(json['data']) : (json['data'] is String ? json['data'] : ''), otherData: json['data']);
   }
 
-  Map<String, dynamic> toJson() => {"state": state, "message": message, "data": data, 'errors': errors.toString()};
+  Map<String, dynamic> toJson() => {"state": state, "message": message, "data": data, 'otherData': otherData.toString()};
 }
 
 void tryCatch(Function? f) {
