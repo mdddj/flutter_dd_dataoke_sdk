@@ -1,4 +1,14 @@
-#1.3.0
+#1.3.1
+* 添加web适配器
+```dart
+    if(kIsWeb){
+      var adapter = BrowserHttpClientAdapter();
+      adapter.withCredentials = true;
+      _dio.httpClientAdapter = adapter;
+    }
+```
+
+##1.3.0
 * bug 修复
 
 ##1.2.8
