@@ -3,8 +3,6 @@ import 'dart:io';
 
 import 'package:dd_taoke_sdk/model/result.dart';
 import 'package:dio/adapter.dart';
-import 'package:dio/adapter_browser.dart';
-import 'package:dio/browser_imp.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
@@ -60,11 +58,11 @@ class DdTaokeUtil {
         return client;
       };
     }
-    if(kIsWeb){
-      var adapter = BrowserHttpClientAdapter();
-      adapter.withCredentials = true;
-      _dio.httpClientAdapter = adapter;
-    }
+    // if(kIsWeb){
+    //   var adapter = BrowserHttpClientAdapter();
+    //   adapter.withCredentials = true;
+    //   _dio.httpClientAdapter = adapter;
+    // }
 
     _onStart?.call(_dio); // 全局的
     onStart?.call(_dio); // 局部的
@@ -108,11 +106,6 @@ class DdTaokeUtil {
         client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
         return client;
       };
-    }
-    if(kIsWeb){
-      var adapter = BrowserHttpClientAdapter();
-      adapter.withCredentials = true;
-      _dio.httpClientAdapter = adapter;
     }
 
     _onStart?.call(_dio);
