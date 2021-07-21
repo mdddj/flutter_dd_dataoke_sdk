@@ -1,10 +1,12 @@
 import 'dart:async';
+
 // In order to *not* need this ignore, consider extracting the "web" version
 // of your plugin as a separate package, instead of inlining it in the same
 // package as the core of your plugin.
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html' as html show window;
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
@@ -44,14 +46,14 @@ class DdTaokeSdkWeb {
     return Future.value(version);
   }
 
-  Future<bool> isWeChatBrowser(){
-    final version = html.window.navigator.userAgent.matchAsPrefix('/MicroMessenger/i');
-    if(version!=null){
-      final val = version[0];
-      print('----$val');
-      return Future.value(val=='micromessenger');
+  Future<bool> isWeChatBrowser() async {
+    if (kIsWeb) {
+      final ua = html.window.navigator.userAgent.toLowerCase();
+      if(ua.indexOf('micromessenger')!=-1){
+        return true;
+      }
+      return false;
     }
-    return Future.value(false);
-
+    return false;
   }
 }
