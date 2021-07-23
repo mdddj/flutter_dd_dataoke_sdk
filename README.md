@@ -4,6 +4,14 @@
 [![pub](https://badgen.net/pub/v/dd_taoke_sdk)](https://pub.dev/packages/dd_taoke_sdk)
 
 
+更新记录
+* 新增判断微信浏览器Api
+```dart
+  // 判断是否微信浏览器
+  final isWeChat =  await FlutterDdDataokeSdk.isWebChatBrowser;
+  print(isWeChat); // true 或者 false 
+```
+
 
 # 1.初始化
 在main函数中添加如下代码
@@ -18,9 +26,7 @@
 ```dart
 
 void main() {
-  // final proxy = '192.168.199.68:2333';
-  // DdTaokeUtil.instance.init('http://192.168.199.68', '8088', proxy: '');
-  DdTaokeUtil.instance.init('http://itbug.shop', '8088', proxy: '');
+  DdTaokeUtil.instance.init('http://itbug.shop', '443', proxy: '');
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
     home: MyApp(),

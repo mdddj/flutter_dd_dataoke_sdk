@@ -1,4 +1,13 @@
-#1.3.3
+#1.3.5
+* 插件引入方式变更 (web)
+* 新增判断微信浏览器Api
+```dart
+  // 判断是否微信浏览器
+  final isWeChat =  await FlutterDdDataokeSdk.isWebChatBrowser;
+  print(isWeChat); // true 或者 false 
+```
+
+##1.3.3
 * 添加判断是否为微信浏览器的api
 
 #1.3.2 

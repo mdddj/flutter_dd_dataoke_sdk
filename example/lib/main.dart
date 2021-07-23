@@ -232,10 +232,8 @@ class MyApp extends StatelessWidget {
             }),
             MyButton('判断浏览器版本', onTap: ()async{
               if(kIsWeb){
-               final version = await  FlutterDdDataokeSdk.platformVersion;
                final isWeChat =  await FlutterDdDataokeSdk.isWebChatBrowser;
                print(isWeChat);
-               Get.dialog(AlertDialog(content: Text(version),));
               }
             })
           ],
