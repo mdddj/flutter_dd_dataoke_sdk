@@ -42,7 +42,7 @@ class BrandDetail {
     totalNum: json["totalNum"],
     brandId: json["brandId"],
     brandFeatures: json["brandFeatures"],
-    list: List<Product>.from(json["list"].map((x) => Product.fromJson(x))),
+    list: List<Product>.from(json["list"].map((x) => Product.fromBrandDetailJson(x))),
     pageId: json["pageId"],
     brandLogo: json["brandLogo"],
     sales: json["sales"],
