@@ -233,6 +233,86 @@ class Product {
         circleText: json['circleText']);
   }
 
+  factory Product.fromBrandDetailJson(Map<String, dynamic> json) {
+    return Product(
+        teamName: json["teamName"],
+        tbcid:
+        json["tbcid"] is String ? int.parse(json["tbcid"]) : json["tbcid"],
+        shipPercent: json["shipPercent"]?.toDouble(),
+        freeshipRemoteDistrict: json["freeshipRemoteDistrict"],
+        yunfeixian: json["yunfeixian"],
+        itemLink: json["itemLink"],
+        goldSellers: json["goldSellers"],
+        reimgs: json["reimgs"],
+        couponLink: json["couponLink"],
+        haitao: json["haitao"],
+        sellerId: json["sellerId"],
+        discounts: json["discount"]?.toDouble(),
+        directCommissionLink: json["directCommissionLink"],
+        couponStartTime: json["couponStartTime"],
+        serviceScore: json["serviceScore"]?.toDouble(),
+        mainPic: json["mainPic"],
+        tchaoshi: json["tchaoshi"],
+        id: json["id"] is String ? int.parse(json["id"]) : json["id"],
+        brand: json["brand"],
+        imgs: json["imgs"],
+        brandName: json["brandName"],
+        subcid: json["subcid"] != null
+            ? List<int>.from(json["subcid"].map((x) => x))
+            : null,
+        couponConditions: json["couponConditions"],
+        detailPics: json["detailPics"],
+        subdivisionId: json["subdivisionId"],
+        dsrScore: json["dsrScore"]?.toDouble(),
+        shopLogo: json["shopLogo"],
+        dailySales: json["dailySales"],
+        shopLevel: json["shopLevel"].toString(),
+        couponTotalNum: json["couponTotalNum"],
+        descScore: json["descScore"]?.toDouble(),
+        brandWenan: json["brandWenan"],
+        activityEndTime: json["activityEndTime"],
+        shipScore: json["shipScore"]?.toString(),
+        brandId: json["brandId"] is String
+            ? int.parse(json["brandId"])
+            : json["brandId"],
+        couponReceiveNum: json["couponReceiveNum"],
+        shopType: json["shopType"],
+        desc: json["desc"],
+        cid: json["cid"],
+        commissionRate: json["commissionRate"]?.toDouble(),
+        originalPrice: json["originPrice"]?.toDouble(),
+        actualPrice: json["actualPrice"]?.toDouble(),
+        goodsId: json["goodsId"],
+        quanMLink: json["quanMLink"],
+        shopName: json["shopName"],
+        activityStartTime: json["activityStartTime"],
+        video: json["video"],
+        title: json["title"],
+        dtitle: json["dtitle"],
+        monthSales: json["monthSales"],
+        subdivisionRank: json["subdivisionRank"],
+        hzQuanOver: json["hzQuanOver"],
+        isSubdivision: json["isSubdivision"],
+        marketingMainPic: json["marketingMainPic"],
+        directCommissionType: json["directCommissionType"],
+        servicePercent: json["servicePercent"]?.toDouble(),
+        commissionType: json["commissionType"],
+        couponEndTime: json["couponEndTime"],
+        directCommission: json["directCommission"]?.toDouble(),
+        twoHoursSales: json["twoHoursSales"],
+        createTime: json["createTime"],
+        dsrPercent: json["dsrPercent"]?.toDouble(),
+        estimateAmount: json["estimateAmount"]?.toDouble(),
+        specialText: json["specialText"] != null
+            ? List<dynamic>.from(json["specialText"].map((x) => x))
+            : [],
+        couponPrice: json["couponPrice"]?.toDouble(),
+        activityType: json["activityType"],
+        hotPush: json["hotPush"],
+        subdivisionName: json["subdivisionName"],
+        circleText: json['circleText']);
+  }
+
   Map<String, dynamic> toJson() => {
         "teamName": teamName,
         "tbcid": tbcid,
