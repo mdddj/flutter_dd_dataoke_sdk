@@ -1,6 +1,5 @@
 import 'package:dd_taoke_sdk/constant/sort.dart';
 import 'package:dd_taoke_sdk/dd_taoke_sdk.dart';
-import 'package:dd_taoke_sdk/flutter_dd_dataoke_sdk.dart';
 import 'package:dd_taoke_sdk/network/util.dart';
 import 'package:dd_taoke_sdk/params/activity_link_param.dart';
 import 'package:dd_taoke_sdk/params/brand_param.dart';
@@ -232,8 +231,6 @@ class MyApp extends StatelessWidget {
             }),
             MyButton('判断浏览器版本', onTap: ()async{
               if(kIsWeb){
-               final isWeChat =  await FlutterDdDataokeSdk.isWebChatBrowser;
-               print(isWeChat);
               }
             })
           ],
