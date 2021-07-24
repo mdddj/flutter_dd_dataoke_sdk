@@ -60,7 +60,6 @@ class ListElement {
     this.hdLeixing,
     this.itemId,
     this.picUrl,
-    this.preferential,
     this.activityId,
     this.yijuhua,
     this.couponAmount,
@@ -85,7 +84,6 @@ class ListElement {
   int? hdLeixing;
   String? itemId;
   String? picUrl;
-  Preferential? preferential;
   int? activityId;
   String? yijuhua;
   int? couponAmount;
@@ -110,7 +108,6 @@ class ListElement {
         hdLeixing: json["hdLeixing"],
         itemId: json["itemId"],
         picUrl: json["picUrl"],
-        preferential: preferentialValues.map[json["preferential"]],
         activityId: json["activityId"],
         yijuhua: json["yijuhua"],
         couponAmount: json["couponAmount"] is double
@@ -138,7 +135,6 @@ class ListElement {
         "hdLeixing": hdLeixing,
         "itemId": itemId,
         "picUrl": picUrl,
-        "preferential": preferentialValues.reverse![preferential!],
         "activityId": activityId,
         "yijuhua": yijuhua,
         "couponAmount": couponAmount,
@@ -157,10 +153,6 @@ class ListElement {
       };
 }
 
-enum Preferential { EMPTY, PREFERENTIAL }
-
-final preferentialValues =
-    EnumValues({"拍下半价": Preferential.EMPTY, "买一送一": Preferential.PREFERENTIAL});
 
 class SessionsList {
   SessionsList({
@@ -190,7 +182,7 @@ class EnumValues<T> {
 
   Map<T, String>? get reverse {
     if (reverseMap == null) {
-      reverseMap = map.map((k, v) => new MapEntry(v, k));
+      reverseMap = map.map((k, v) => MapEntry(v, k));
     }
     return reverseMap;
   }

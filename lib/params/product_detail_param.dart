@@ -4,7 +4,6 @@
 
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 
 ProductDetailParam productDetailParamFromJson(String str) =>
     ProductDetailParam.fromJson(json.decode(str));

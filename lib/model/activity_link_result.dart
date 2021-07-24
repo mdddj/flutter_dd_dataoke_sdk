@@ -2,12 +2,8 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 
-T? asT<T>(dynamic value) {
-  if (value is T) {
-    return value;
-  }
-  return null;
-}
+import 'ff_convert_convert_util.dart';
+
 
 class ActivityLinkResult {
   ActivityLinkResult({

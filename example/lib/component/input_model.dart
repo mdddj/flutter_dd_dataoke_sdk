@@ -41,7 +41,7 @@ class _InputDialogState extends State<InputDialog> {
                       Get.back(result: _editController.text);
                     },
                     child: Text(
-                      "确认",
+                      '确认',
                       style: TextStyle(color: Colors.white),
                     ))
               ],

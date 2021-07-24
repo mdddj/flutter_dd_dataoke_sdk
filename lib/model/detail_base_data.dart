@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:dd_taoke_sdk/model/coupon_link_result.dart';
-import 'package:dd_taoke_sdk/model/product.dart';
+import 'coupon_link_result.dart';
+import 'product.dart';
 
 class DetailBaseDataResult {
   Product? info; // 商品的基本信息

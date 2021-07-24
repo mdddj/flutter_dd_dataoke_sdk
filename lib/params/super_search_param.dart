@@ -4,7 +4,6 @@
 
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 
 SuperSearchParam superSearchParamFromJson(String str) =>
     SuperSearchParam.fromJson(json.decode(str));

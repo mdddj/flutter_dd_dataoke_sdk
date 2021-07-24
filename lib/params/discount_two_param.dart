@@ -4,8 +4,6 @@
 
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
-
 DiscountTwoParam discountTwoParamFromJson(String str) =>
     DiscountTwoParam.fromJson(json.decode(str));
 

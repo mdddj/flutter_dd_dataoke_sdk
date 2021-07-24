@@ -4,7 +4,6 @@
 
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 
 TopParam topParamFromJson(String str) => TopParam.fromJson(json.decode(str));
 

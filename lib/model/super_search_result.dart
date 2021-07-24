@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:dd_taoke_sdk/model/product.dart';
+import 'product.dart';
 
 SuperSearchResult superSearchResultFromJson(String str) => SuperSearchResult.fromJson(json.decode(str));
 

@@ -1,13 +1,8 @@
 import 'dart:convert' show json;
 
-import 'package:dd_taoke_sdk/model/product.dart';
+import 'coupon_link_result.dart';
+import 'product.dart';
 
-T? asT<T>(dynamic value) {
-  if (value is T) {
-    return value;
-  }
-  return null;
-}
 
 class WechatResult {
   WechatResult({
@@ -16,10 +11,7 @@ class WechatResult {
     this.pageId,
   });
 
-  factory WechatResult.fromJson(Map<String, dynamic>? jsonRes) {
-    if (jsonRes == null) {
-      return null!;
-    }
+  factory WechatResult.fromJson(Map<String, dynamic> jsonRes) {
     final List<Product>? list = jsonRes['list'] is List ? <Product>[] : null;
     if (list != null) {
       for (final dynamic item in jsonRes['list']) {

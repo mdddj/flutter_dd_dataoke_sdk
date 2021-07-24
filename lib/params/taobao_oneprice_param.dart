@@ -4,7 +4,6 @@
 
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 
 TaobaoOnePriceParam taobaoOnePriceParamFromJson(String str) =>
     TaobaoOnePriceParam.fromJson(json.decode(str));

@@ -29,27 +29,25 @@ class CouponLinkResult {
   });
 
 
-  factory CouponLinkResult.fromJson(Map<String, dynamic>? jsonRes){
-    if(jsonRes!=null){
-      return CouponLinkResult(couponRemainCount : asT<String>(jsonRes['couponRemainCount']),
-        kuaiZhanUrl : asT<String>(jsonRes['kuaiZhanUrl']),
-        minCommissionRate : asT<String>(jsonRes['minCommissionRate']),
-        originalPrice : asT<double>(jsonRes['originalPrice']),
-        couponInfo : asT<String>(jsonRes['couponInfo']),
-        actualPrice : asT<double>(jsonRes['actualPrice']),
-        shortUrl : asT<String>(jsonRes['shortUrl']),
-        maxCommissionRate : asT<String>(jsonRes['maxCommissionRate']),
-        couponEndTime : asT<String>(jsonRes['couponEndTime']),
-        couponTotalCount : asT<String>(jsonRes['couponTotalCount']),
-        itemId : asT<String>(jsonRes['itemId']),
-        couponStartTime : asT<String>(jsonRes['couponStartTime']),
-        couponClickUrl : asT<String>(jsonRes['couponClickUrl']),
-        itemUrl : asT<String>(jsonRes['itemUrl']),
-        longTpwd : asT<String>(jsonRes['longTpwd']),
-        tpwd : asT<String>(jsonRes['tpwd']),
-      );
-    }
-    return null!;
+  factory CouponLinkResult.fromJson(Map<String, dynamic> jsonRes){
+    return CouponLinkResult(couponRemainCount : asT<String>(jsonRes['couponRemainCount']),
+      kuaiZhanUrl : asT<String>(jsonRes['kuaiZhanUrl']),
+      minCommissionRate : asT<String>(jsonRes['minCommissionRate']),
+      originalPrice : asT<double>(jsonRes['originalPrice']),
+      couponInfo : asT<String>(jsonRes['couponInfo']),
+      actualPrice : asT<double>(jsonRes['actualPrice']),
+      shortUrl : asT<String>(jsonRes['shortUrl']),
+      maxCommissionRate : asT<String>(jsonRes['maxCommissionRate']),
+      couponEndTime : asT<String>(jsonRes['couponEndTime']),
+      couponTotalCount : asT<String>(jsonRes['couponTotalCount']),
+      itemId : asT<String>(jsonRes['itemId']),
+      couponStartTime : asT<String>(jsonRes['couponStartTime']),
+      couponClickUrl : asT<String>(jsonRes['couponClickUrl']),
+      itemUrl : asT<String>(jsonRes['itemUrl']),
+      longTpwd : asT<String>(jsonRes['longTpwd']),
+      tpwd : asT<String>(jsonRes['tpwd']),
+    );
+
   }
 
   String? couponRemainCount;

@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:dd_taoke_sdk/model/product.dart';
+import 'product.dart';
 
 BrandDetail brandDetailFromJson(String str) => BrandDetail.fromJson(json.decode(str));
 

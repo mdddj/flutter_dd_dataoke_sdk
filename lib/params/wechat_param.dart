@@ -4,7 +4,6 @@
 
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 
 WechatParam wechatParamFromJson(String str) => WechatParam.fromJson(json.decode(str));
 

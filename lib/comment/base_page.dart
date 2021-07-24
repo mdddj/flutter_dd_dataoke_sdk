@@ -1,14 +1,14 @@
-import 'package:dd_taoke_sdk/dd_taoke_sdk.dart';
-import 'package:dd_taoke_sdk/model/category.dart';
-import 'package:dd_taoke_sdk/model/product.dart';
+import '../dd_taoke_sdk.dart';
+import '../model/category.dart';
+import '../model/product.dart';
 import 'package:flutter/material.dart';
 
 abstract class BasePage<T extends StatefulWidget> extends State<T> {
-  var categorys = <Category>[];
+  List<Category> categorys = <Category>[];
 
-  var page = 1;
-  var pageSize = 10;
-  var products = <Product>[];
+  int page = 1;
+  int pageSize = 10;
+  List<Product> products = <Product>[];
 
   @override
   void initState() {

@@ -5,8 +5,6 @@
 
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
-
 BrandListParam brandListParamFromJson(String str) => BrandListParam.fromJson(json.decode(str));
 
 String brandListParamToJson(BrandListParam data) => json.encode(data.toJson());

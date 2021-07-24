@@ -10,8 +10,8 @@ class MyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: ElevatedButton(
-        child: Text('$text',style: TextStyle(color: Colors.white),),
         onPressed: onTap,
+        child: Text('$text',style: TextStyle(color: Colors.white),),
       ),
     );
   }
