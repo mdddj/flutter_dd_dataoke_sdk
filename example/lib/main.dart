@@ -17,6 +17,7 @@ import 'package:dd_taoke_sdk/params/super_search_param.dart';
 import 'package:dd_taoke_sdk/params/taobao_oneprice_param.dart';
 import 'package:dd_taoke_sdk/params/top_param.dart';
 import 'package:dd_taoke_sdk/params/wechat_param.dart';
+import 'package:dd_taoke_sdk/public_api.dart';
 import 'component/buttom.dart';
 import 'component/input_model.dart';
 import 'test/hotday_page.dart';
@@ -29,13 +30,13 @@ import 'component/json_result_page.dart';
 
 void main() {
   // final proxy = '192.168.199.68:2333';
-  DdTaokeUtil.instance.init('https://itbug.shop', '443', proxy: '', onStart: (dio) {
+  DdTaokeUtil.instance.init('http://localhost', '80', proxy: '', onStart: (dio) {
     (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
       client.badCertificateCallback = (cert, host, port) {
         return true;
       };
     };
-  }); // 我测试用的
+  },debug: true); // 我测试用的
   // DdTaokeUtil.instance.init('http://itbug.shop', '80', proxy: ''); // 服务器的接口
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
@@ -217,6 +218,21 @@ class MyApp extends StatelessWidget {
             MyButton('京东大牌折扣商品', onTap: () async {
               final products =  await DdTaokeSdk.instance.jdDpzk(1, 20);
               toJsonView(products);
+            }),
+            MyButton('用户注册测试', onTap: (){
+              PublicApi.req.register('test', '111', '头像url');
+            }),
+            MyButton('登录测试', onTap: (){
+              PublicApi.req.login('test', '11122',tokenHandle: (token){
+                print('登录获取的token是:$token');
+              },loginFail: (msg){
+                print('登录失败:$msg');
+              });
+            })
+            ,
+            MyButton('获取系统预设头像', onTap: ()async{
+             final result = await PublicApi.req.getAvaPics();
+             toJsonView(result);
             })
           ],
         ),

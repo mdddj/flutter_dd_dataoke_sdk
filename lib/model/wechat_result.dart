@@ -1,6 +1,6 @@
 import 'dart:convert' show json;
 
-import 'coupon_link_result.dart';
+import 'ff_convert_convert_util.dart';
 import 'product.dart';
 
 

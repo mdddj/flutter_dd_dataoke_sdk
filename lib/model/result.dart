@@ -19,14 +19,16 @@ class DdTaokeResult {
   dynamic otherData;
 
   factory DdTaokeResult.fromJson(Map<String, dynamic> json) {
+    var data = json["data"] is Map<String, dynamic>
+        ? jsonEncode(json['data'])
+        : (json['data'] is String ? json['data'].toString() : jsonEncode(json['data']));
     return DdTaokeResult(
-        state: json["state"], message: json["message"], data: json["data"] is Map<String, dynamic> ? jsonEncode(json['data']) : (json['data'] is String ? json['data'] : ''), otherData: json['data']);
+        state: json["state"], message: json["message"], data: data, otherData: json['data']);
   }
 
-  Map<String, dynamic> toJson() => {"state": state, "message": message, "data": data, 'otherData': otherData.toString()};
+  Map<String, dynamic> toJson() =>
+      {"state": state, "message": message, "data": data, 'otherData': otherData.toString()};
 }
-
-
 
 class ErrorRoot {
   ErrorRoot({

@@ -1,11 +1,6 @@
 import 'dart:convert' show json;
 
-T? asT<T>(dynamic value) {
-  if (value is T) {
-    return value;
-  }
-  return null;
-}
+import 'ff_convert_convert_util.dart';
 
 /// 高效转链返回数据模型
 class CouponLinkResult {
