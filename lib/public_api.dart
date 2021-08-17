@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
+import 'model/room_model.dart';
 import 'model/system_pic.dart';
 import 'model/user.dart';
 import 'network/util.dart';
@@ -87,5 +88,27 @@ class PublicApi {
         ? List<SystemPic>.from(
             (jsonDecode(resutl) as List<dynamic>).map((e) => SystemPic.fromJson(e))).toList()
         : <SystemPic>[];
+  }
+
+  /// 创建游戏房间
+  ///
+  /// [userId] : 用户id,房间创始人
+  ///
+  /// [roomName] : 房间名字
+  ///
+  Future<GameRoomModel?> createRoom(int userId, String roomName, {ApiError? error}) async {
+    final result = await util.post('$userApiUrl/create-room',
+        isTaokeApi: false, data: {'name': roomName, 'userId': userId}, error: error);
+
+    return result.isNotEmpty ? GameRoomModel.fromJson(jsonDecode(result)) : null;
+  }
+
+  /// 获取所有的房间
+  Future<List<GameRoomModel>> getAllRoom({ApiError? error}) async {
+    final result = await util.get('$userApiUrl/rooms', isTaokeApi: false, error: error);
+    if (result.isNotEmpty) {
+      return GameRoomModel.covertFromRoomsApi(result);
+    }
+    return [];
   }
 }

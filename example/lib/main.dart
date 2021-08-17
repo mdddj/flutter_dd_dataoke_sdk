@@ -233,6 +233,13 @@ class MyApp extends StatelessWidget {
             MyButton('获取系统预设头像', onTap: ()async{
              final result = await PublicApi.req.getAvaPics();
              toJsonView(result);
+            }),
+            MyButton('创建游戏房间', onTap: (){
+              PublicApi.req.createRoom(1, '测试房间');
+            }),
+            MyButton('获取全部的游戏房间', onTap: () async {
+              final result = await PublicApi.req.getAllRoom();
+              print('获取到房间数量:${result.length}');
             })
           ],
         ),
