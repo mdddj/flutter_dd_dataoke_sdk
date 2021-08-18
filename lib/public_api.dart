@@ -111,4 +111,10 @@ class PublicApi {
     }
     return [];
   }
+
+  /// 获取当前在线的总人数
+  Future<String> getInlineUserCount() async {
+    final result  = await util.get('$userApiUrl/inline-count',isTaokeApi: false);
+    return result;
+  }
 }

@@ -23,44 +23,15 @@
 
 ```dart
 
-import 'package:dd_taoke_sdk/constant/sort.dart';
-import 'package:dd_taoke_sdk/dd_taoke_sdk.dart';
-import 'package:dd_taoke_sdk/network/util.dart';
-import 'package:dd_taoke_sdk/params/activity_link_param.dart';
-import 'package:dd_taoke_sdk/params/brand_param.dart';
-import 'package:dd_taoke_sdk/params/brand_product_param.dart';
-import 'package:dd_taoke_sdk/params/comment_param.dart';
-import 'package:dd_taoke_sdk/params/discount_two_param.dart';
-import 'package:dd_taoke_sdk/params/high_commission_param.dart';
-import 'package:dd_taoke_sdk/params/hotday_param.dart';
-import 'package:dd_taoke_sdk/params/nine_nine_param.dart';
-import 'package:dd_taoke_sdk/params/product_detail_param.dart';
-import 'package:dd_taoke_sdk/params/product_list_param.dart';
-import 'package:dd_taoke_sdk/params/shop_convert_param.dart';
-import 'package:dd_taoke_sdk/params/speider_param.dart';
-import 'package:dd_taoke_sdk/params/super_search_param.dart';
-import 'package:dd_taoke_sdk/params/taobao_oneprice_param.dart';
-import 'package:dd_taoke_sdk/params/top_param.dart';
-import 'package:dd_taoke_sdk/params/wechat_param.dart';
-import 'component/buttom.dart';
-import 'component/input_model.dart';
-import 'test/hotday_page.dart';
-import 'package:dio/adapter.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import 'component/json_result_page.dart';
-
 void main() {
   // final proxy = '192.168.199.68:2333';
-  DdTaokeUtil.instance.init('https://itbug.shop', '443', proxy: '', onStart: (dio) {
+  DdTaokeUtil.instance.init('http://localhost', '80', proxy: '', onStart: (dio) {
     (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
       client.badCertificateCallback = (cert, host, port) {
         return true;
       };
     };
-  }); // 我测试用的
+  },debug: true); // 我测试用的
   // DdTaokeUtil.instance.init('http://itbug.shop', '80', proxy: ''); // 服务器的接口
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
@@ -84,7 +55,8 @@ class MyApp extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Wrap(
-          spacing: 5,
+          spacing: 12,
+          runSpacing: 12,
           children: [
             MyButton('超级分类', onTap: () async {
               final resut = await DdTaokeSdk.instance.getCategorys();
@@ -144,11 +116,11 @@ class MyApp extends StatelessWidget {
             MyButton('超级搜索', onTap: () async {
               final result = await DdTaokeSdk.instance.superSearch(
                   param: SuperSearchParam(
-                    keyWords: '辣条',
-                    pageSize: '1',
-                    type: '0',
-                    pageId: '1',
-                  ));
+                keyWords: '辣条',
+                pageSize: '1',
+                type: '0',
+                pageId: '1',
+              ));
               toJsonView(result);
             }),
             MyButton('淘宝官方活动(一元购)', onTap: () async {
@@ -228,8 +200,8 @@ class MyApp extends StatelessWidget {
               if (kIsWeb) {}
             }),
             MyButton('京东9块9', onTap: () async {
-              final products =  await DdTaokeSdk.instance.jdNinesList(5, 20, 0);
-              toJsonView(products);
+             final products =  await DdTaokeSdk.instance.jdNinesList(5, 20, 0);
+             toJsonView(products);
             }),
             MyButton('京东产品详情', onTap: () async {
               final products =  await DdTaokeSdk.instance.jdDetail('10327875287');
@@ -242,6 +214,31 @@ class MyApp extends StatelessWidget {
             MyButton('京东大牌折扣商品', onTap: () async {
               final products =  await DdTaokeSdk.instance.jdDpzk(1, 20);
               toJsonView(products);
+            }),
+            MyButton('用户注册测试', onTap: (){
+              PublicApi.req.register('test', '111', '头像url');
+            }),
+            MyButton('登录测试', onTap: (){
+              PublicApi.req.login('test', '11122',tokenHandle: (token){
+                print('登录获取的token是:$token');
+              },loginFail: (msg){
+                print('登录失败:$msg');
+              });
+            })
+            ,
+            MyButton('获取系统预设头像', onTap: ()async{
+             final result = await PublicApi.req.getAvaPics();
+             toJsonView(result);
+            }),
+            MyButton('创建游戏房间', onTap: (){
+              PublicApi.req.createRoom(46, '梁典典进');
+            }),
+            MyButton('获取全部的游戏房间', onTap: () async {
+              final result = await PublicApi.req.getAllRoom();
+              print('获取到房间数量:${result.length}');
+            }),
+            MyButton('获取当前在线总人数', onTap: (){
+              PublicApi.req.getInlineUserCount();
             })
           ],
         ),

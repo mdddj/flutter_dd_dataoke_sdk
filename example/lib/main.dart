@@ -60,7 +60,8 @@ class MyApp extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Wrap(
-          spacing: 5,
+          spacing: 12,
+          runSpacing: 12,
           children: [
             MyButton('超级分类', onTap: () async {
               final resut = await DdTaokeSdk.instance.getCategorys();
@@ -235,11 +236,14 @@ class MyApp extends StatelessWidget {
              toJsonView(result);
             }),
             MyButton('创建游戏房间', onTap: (){
-              PublicApi.req.createRoom(1, '测试房间');
+              PublicApi.req.createRoom(46, '梁典典进');
             }),
             MyButton('获取全部的游戏房间', onTap: () async {
               final result = await PublicApi.req.getAllRoom();
               print('获取到房间数量:${result.length}');
+            }),
+            MyButton('获取当前在线总人数', onTap: (){
+              PublicApi.req.getInlineUserCount();
             })
           ],
         ),
