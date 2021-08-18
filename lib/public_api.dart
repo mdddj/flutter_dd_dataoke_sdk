@@ -120,8 +120,16 @@ class PublicApi {
 
   /// 删除一个房间
   ///
-  /// 此api需要用户登录
+  /// 此api需要用户登录授权
   Future<void> removeRoom(String name) async {
     await util.post('$userApiUrl/remove-room', data: {'name': name}, isTaokeApi: false);
+  }
+
+  /// 进入一个房间
+  Future<void> inRoom(String userId,String roomName) async {
+    await util.post('$userApiUrl/in-room',data: {
+      'userId':userId,
+      'roomName':roomName
+    },isTaokeApi: false);
   }
 }
