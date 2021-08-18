@@ -114,7 +114,14 @@ class PublicApi {
 
   /// 获取当前在线的总人数
   Future<String> getInlineUserCount() async {
-    final result  = await util.get('$userApiUrl/inline-count',isTaokeApi: false);
+    final result = await util.get('$userApiUrl/inline-count', isTaokeApi: false);
     return result;
+  }
+
+  /// 删除一个房间
+  ///
+  /// 此api需要用户登录
+  Future<void> removeRoom(String name) async {
+    await util.post('$userApiUrl/remove-room', data: {'name': name}, isTaokeApi: false);
   }
 }
