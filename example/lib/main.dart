@@ -36,7 +36,7 @@ void main() {
         return true;
       };
     };
-  },debug: true); // 我测试用的
+  },debug: false,printParams: true); // 我测试用的
   // DdTaokeUtil.instance.init('http://itbug.shop', '80', proxy: ''); // 服务器的接口
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,

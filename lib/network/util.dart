@@ -20,6 +20,7 @@ class DdTaokeUtil {
   static var _port = '';
   static var _proxy = '';
   static var _print = true;
+  static var _showParams = true;
 
   String get ip => _ip;
 
@@ -28,8 +29,9 @@ class DdTaokeUtil {
   OnRequestStart? _onStart;
 
   /// 初始化服务器地址和端口
-  void init(String host, String port, {String? proxy, OnRequestStart? onStart, bool debug = true}) {
+  void init(String host, String port, {String? proxy, OnRequestStart? onStart, bool debug = true,bool printParams = true}) {
     _print = debug;
+    _showParams = printParams;
     _ip = host;
     _port = port;
     if (proxy != null) _proxy = proxy;
@@ -46,6 +48,9 @@ class DdTaokeUtil {
   ///
   Future<String> get(String url,
       {Map<String, dynamic>? data, ApiError? error, OnRequestStart? onStart, bool? isTaokeApi, ResultDataMapHandle? mapData, CancelToken? cancelToken, ValueChanged<dynamic>? otherDataHandle}) async {
+    if(_showParams && data!=null){
+      Logger().wtf(jsonEncode(data));
+    }
     var _dio = createInstance()!;
     if (_proxy.isNotEmpty) addProxy(_dio, _proxy);
     if (isTaokeApi ?? true) {
