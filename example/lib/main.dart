@@ -1,5 +1,7 @@
 import 'package:dd_taoke_sdk/constant/sort.dart';
 import 'package:dd_taoke_sdk/dd_taoke_sdk.dart';
+import 'package:dd_taoke_sdk/jd_api.dart';
+import 'package:dd_taoke_sdk/model/jd/jd_req_param.dart';
 import 'package:dd_taoke_sdk/network/util.dart';
 import 'package:dd_taoke_sdk/params/activity_link_param.dart';
 import 'package:dd_taoke_sdk/params/brand_param.dart';
@@ -30,7 +32,7 @@ import 'component/json_result_page.dart';
 
 void main() {
   // final proxy = '192.168.199.68:2333';
-  DdTaokeUtil.instance.init('http://localhost', '80', proxy: '', onStart: (dio) {
+  DdTaokeUtil.instance.init('http://192.168.100.15', '80', proxy: '', onStart: (dio) {
     (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
       client.badCertificateCallback = (cert, host, port) {
         return true;
@@ -244,6 +246,12 @@ class MyApp extends StatelessWidget {
             }),
             MyButton('获取当前在线总人数', onTap: (){
               PublicApi.req.getInlineUserCount();
+            }),
+            MyButton('获取京东商品', onTap: ()async{
+
+             final result= await JdApi.instance.getProducts(JdReqParam(eliteId: 2));
+             toJsonView(result);
+              
             })
           ],
         ),
