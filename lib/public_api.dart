@@ -66,7 +66,7 @@ class PublicApi {
   ///
   /// [start] : 请求开始时执行的方法,
   Future<User?> getUser(String token, {OnRequestStart? start}) async {
-    final result = await util.get('/api/auth/current',
+    final result = await util.get('/api/get-user-by-token',
         data: {'token': token}, onStart: start, isTaokeApi: false);
 
     if (result.isNotEmpty) {
