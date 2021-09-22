@@ -48,6 +48,7 @@ class DdTaokeUtil {
   ///
   Future<String> get(String url,
       {Map<String, dynamic>? data, ApiError? error, OnRequestStart? onStart, bool? isTaokeApi, ResultDataMapHandle? mapData, CancelToken? cancelToken, ValueChanged<dynamic>? otherDataHandle}) async {
+    Logger().d(url);
     if(_showParams && data!=null){
       Logger().wtf(jsonEncode(data));
     }

@@ -100,6 +100,7 @@ class DdTaokeSdk {
   }
 
   /// 获取商品详情页面所需的基本数据
+  /// productId 大淘客商品id
   Future<DetailBaseDataResult?> getDetailBaseData({required String productId, ApiError? apiError}) async {
     final response = await util.get('/product-detail-all/$productId', error: apiError);
     var result;

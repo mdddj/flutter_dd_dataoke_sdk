@@ -32,7 +32,7 @@ import 'component/json_result_page.dart';
 
 void main() {
   // final proxy = '192.168.199.68:2333';
-  DdTaokeUtil.instance.init('http://192.168.100.15', '80', proxy: '', onStart: (dio) {
+  DdTaokeUtil.instance.init('http://192.168.199.61', '80', proxy: '', onStart: (dio) {
     (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
       client.badCertificateCallback = (cert, host, port) {
         return true;
@@ -91,7 +91,7 @@ class MyApp extends StatelessWidget {
               toJsonView(result);
             }),
             MyButton('获取详情页面所需数据', onTap: () async {
-              final result = await DdTaokeSdk.instance.getDetailBaseData(productId: '32448990');
+              final result = await DdTaokeSdk.instance.getDetailBaseData(productId: '35561424');
               toJsonView(result);
             }),
             MyButton('高效转链', onTap: () async {
@@ -252,6 +252,12 @@ class MyApp extends StatelessWidget {
              final result= await JdApi.instance.getProducts(JdReqParam(eliteId: 2));
              toJsonView(result);
               
+            }),
+            MyButton('京东商品查询', onTap: ()async{
+
+              final result= await JdApi.instance.searchProducts();
+              toJsonView(result);
+
             })
           ],
         ),
