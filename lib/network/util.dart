@@ -89,13 +89,13 @@ class DdTaokeUtil {
           }
           return '';
         } else {
-          errorHandle(error, result.state, result.message);
+          errorHandle(error, result.state, result.message,data: result.data);
           return '';
         }
       }
     } on DioError catch (e) {
       if (e.response != null) {
-        errorHandle(error, e.response!.statusCode, e.response!.statusMessage);
+        errorHandle(error, e.response!.statusCode??-1, e.response!.statusMessage??'请求失败');
       }
       errorHandle(error, 500, '${e.toString()}');
     }
@@ -133,13 +133,13 @@ class DdTaokeUtil {
           }
           return '';
         } else {
-          errorHandle(error, result.state, result.message);
+          errorHandle(error, result.state, result.message,data: result.data);
           return '';
         }
       }
     } on DioError catch (e) {
       if (e.response != null) {
-        errorHandle(error, e.response!.statusCode, e.response!.statusMessage);
+        errorHandle(error, e.response!.statusCode??-1, e.response!.statusMessage??'请求失败');
       }
       errorHandle(error, 500, '${e.toString()}');
     }
@@ -148,9 +148,9 @@ class DdTaokeUtil {
   }
 
   /// 请求没有正常执行
-  void errorHandle(ApiError? error, int? code, String? message) {
+  void errorHandle(ApiError? error, int code, String message,{dynamic data}) {
     if (error != null) {
-      error(code, message);
+      error(code, message,data);
     } else {
       print('请求失败:code=$code.message=$message');
     }
@@ -167,7 +167,7 @@ class DdTaokeUtil {
   }
 }
 
-typedef ApiError = void Function(int? stateCode, String? message);
+typedef ApiError = void Function(int stateCode, String message,dynamic data);
 
 void addProxy(Dio dio, String ip) {
   var client;

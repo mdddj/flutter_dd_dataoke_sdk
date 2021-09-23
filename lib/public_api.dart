@@ -20,11 +20,11 @@ class PublicApi {
 
   /// 注册一个典典账号
   ///
-  /// [loginName] : 登录用户名
+  /// [loginName] : 登录用户名,登录名不能小于5个字符
   ///
-  /// [password] : 用户登录密码
+  /// [password] : 用户登录密码,登录密码不能少于6个字符
   ///
-  /// [pic] : 用户的头像url
+  /// [pic] : 用户的头像url,请输入一个有效url
   ///
   Future<bool> register(String loginName, String password, String pic,
       {ApiError? apiError, ValueChanged<dynamic>? otherDataHandle}) async {
@@ -48,10 +48,8 @@ class PublicApi {
     final result = await util.post(
       '/api/user/login',
       data: {'loginNumber': username, 'password': password},
-      error: (int? code, String? msg) {
-        if (msg != null) {
-          loginFail?.call(msg);
-        }
+      error: (int code, String msg,data) {
+        loginFail?.call(msg);
       },
       isTaokeApi: false,
     );

@@ -11,10 +11,10 @@ DdTaokeResult ddTaokeResultFromJson(String str) => DdTaokeResult.fromJson(json.d
 String ddTaokeResultToJson(DdTaokeResult data) => json.encode(data.toJson());
 
 class DdTaokeResult {
-  DdTaokeResult({this.state, this.message, this.data, this.otherData});
+  DdTaokeResult({required this.state, required this.message, this.data, this.otherData});
 
-  int? state;
-  String? message;
+  int state;
+  String message;
   String? data;
   dynamic otherData;
 

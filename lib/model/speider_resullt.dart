@@ -96,14 +96,17 @@ class SpeiderWithTimeResult {
   String? pageId;
   List<TimeOption>? timeOption;
 
-  factory SpeiderWithTimeResult.fromJson(Map<String, dynamic> json) => SpeiderWithTimeResult(
-    curTime: json["curTime"],
-    totalNum: json["totalNum"],
-    selectTime: json["selectTime"],
-    list: List<SpeiderItemWithTimeItem>.from(json["list"].map((x) => SpeiderItemWithTimeItem.fromJson(x))),
-    pageId: json["pageId"],
-    timeOption: List<TimeOption>.from(json["timeOption"].map((x) => TimeOption.fromJson(x))),
-  );
+  factory SpeiderWithTimeResult.fromJson(Map<String, dynamic> json) {
+    final totalNumber = json["totalNum"] as int;
+    return SpeiderWithTimeResult(
+      curTime: json["curTime"],
+      totalNum: totalNumber,
+      selectTime: json["selectTime"],
+      list:totalNumber!=0 ? List<SpeiderItemWithTimeItem>.from(json["list"].map((x) => SpeiderItemWithTimeItem.fromJson(x))) : [],
+      pageId: json["pageId"],
+      timeOption:json["timeOption"] !=null ? List<TimeOption>.from(json["timeOption"].map((x) => TimeOption.fromJson(x))) : [],
+    );
+  }
 
   Map<String, dynamic> toJson() => {
     "curTime": curTime,

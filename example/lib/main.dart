@@ -32,7 +32,7 @@ import 'component/json_result_page.dart';
 
 void main() {
   // final proxy = '192.168.199.68:2333';
-  DdTaokeUtil.instance.init('http://192.168.199.61', '80', proxy: '', onStart: (dio) {
+  DdTaokeUtil.instance.init('http://192.168.100.15', '80', proxy: '', onStart: (dio) {
     (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
       client.badCertificateCallback = (cert, host, port) {
         return true;
@@ -83,7 +83,7 @@ class MyApp extends StatelessWidget {
               toJsonView(result);
             }),
             MyButton('商品详情', onTap: () async {
-              final result = await DdTaokeSdk.instance.getProductDetail(param: ProductDetailParam(id: '32731926'));
+              final result = await DdTaokeSdk.instance.getProductDetail(param: ProductDetailParam(id: '35685974'));
               toJsonView(result);
             }),
             MyButton('获取品牌商品', onTap: () async {
@@ -91,7 +91,7 @@ class MyApp extends StatelessWidget {
               toJsonView(result);
             }),
             MyButton('获取详情页面所需数据', onTap: () async {
-              final result = await DdTaokeSdk.instance.getDetailBaseData(productId: '35561424');
+              final result = await DdTaokeSdk.instance.getDetailBaseData(productId: '35685974');
               toJsonView(result);
             }),
             MyButton('高效转链', onTap: () async {
@@ -197,14 +197,7 @@ class MyApp extends StatelessWidget {
             }),
             MyButton('搜索建议', onTap: () async {
               final resul = await DdTaokeSdk.instance.getSuggest();
-              print(resul.length);
-            }),
-            MyButton('登录', onTap: () async {
-              final result = DdTaokeUtil.instance.post('/api/login', data: {'username': 'admin', 'password': '123456'});
-              toJsonView(result);
-            }),
-            MyButton('判断浏览器版本', onTap: () async {
-              if (kIsWeb) {}
+              toJsonView(resul);
             }),
             MyButton('京东9块9', onTap: () async {
              final products =  await DdTaokeSdk.instance.jdNinesList(5, 20, 0);
@@ -223,10 +216,20 @@ class MyApp extends StatelessWidget {
               toJsonView(products);
             }),
             MyButton('用户注册测试', onTap: (){
-              PublicApi.req.register('test', '111', '头像url');
+              PublicApi.req.register('diandian', '1234567', 'https://static.saintic.com/picbed/huang/2021/08/17/1629169985486.jpg',otherDataHandle: (data){
+                print(data);
+              },apiError: (code,msg,data){
+                print(code);
+                print(msg);
+                print(data);
+              }).then((value) {
+                if(value){
+                  print('注册成功');
+                }
+              });
             }),
             MyButton('登录测试', onTap: (){
-              PublicApi.req.login('test', '11122',tokenHandle: (token){
+              PublicApi.req.login('diandian', '1234567',tokenHandle: (token){
                 print('登录获取的token是:$token');
               },loginFail: (msg){
                 print('登录失败:$msg');
@@ -255,7 +258,11 @@ class MyApp extends StatelessWidget {
             }),
             MyButton('京东商品查询', onTap: ()async{
 
-              final result= await JdApi.instance.searchProducts();
+              final result= await JdApi.instance.searchProducts(error: (c,m,d){
+                print(c);
+                print(m);
+                print(d);
+              },params: {'keyword':'辣条'});
               toJsonView(result);
 
             })

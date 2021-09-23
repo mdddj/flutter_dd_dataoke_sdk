@@ -16,20 +16,20 @@ class JdApi {
   ///
   ///
   Future<String> getProducts(JdReqParam jdReqParam,
-      {Map<String, dynamic>? params}) async {
+      {Map<String, dynamic>? params,ApiError? error}) async {
     final map = jdReqParam.toJson();
     if (params != null) {
       map.addAll(params);
     }
-    return await util.get(_jdurl('products'), data: map, isTaokeApi: false);
+    return await util.get(_jdurl('products'), data: map, isTaokeApi: false,error: error);
   }
 
   /// 关键词查询接口
   ///
   /// params: 参数列表,文档[https://union.jd.com/openplatform/api/v2?apiName=jd.union.open.goods.query]
   ///
-  Future<String> searchProducts({Map<String,dynamic>? params}) async {
-    return await util.get(_jdurl('search'),data: params??{},isTaokeApi: false);
+  Future<String> searchProducts({Map<String,dynamic>? params,ApiError? error}) async {
+    return await util.get(_jdurl('search'),data: params??{},isTaokeApi: false,error: error);
   }
 
   String _jdurl(String url) {
