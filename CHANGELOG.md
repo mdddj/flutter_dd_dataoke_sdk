@@ -1,4 +1,10 @@
-#1.5.5
+#1.5.6
+* 新增拼多多的分类查询接口
+```dart
+DdTaokeSdk.instance.getPddCategory('0'); 
+```
+
+##1.5.5
 * 修复若干bug
 
 ##1.5.4

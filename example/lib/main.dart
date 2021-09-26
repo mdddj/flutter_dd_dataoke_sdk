@@ -24,7 +24,6 @@ import 'component/buttom.dart';
 import 'component/input_model.dart';
 import 'test/hotday_page.dart';
 import 'package:dio/adapter.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -32,7 +31,7 @@ import 'component/json_result_page.dart';
 
 void main() {
   // final proxy = '192.168.199.68:2333';
-  DdTaokeUtil.instance.init('http://192.168.100.15', '80', proxy: '', onStart: (dio) {
+  DdTaokeUtil.instance.init('http://localhost', '80', proxy: '', onStart: (dio) {
     (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
       client.badCertificateCallback = (cert, host, port) {
         return true;
@@ -265,7 +264,12 @@ class MyApp extends StatelessWidget {
               },params: {'keyword':'辣条'});
               toJsonView(result);
 
-            })
+            }),
+
+            MyButton('拼多多的分类查询',onTap: ()async {
+              final result = await DdTaokeSdk.instance.getPddCategory('0');
+              toJsonView(result);
+            },)
           ],
         ),
       ),
