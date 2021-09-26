@@ -1,4 +1,10 @@
-#1.5.6
+#1.5.7
+* 新增京东的分类查询接口
+```dart
+DdTaokeSdk.instance.getJdCategory(parentId: '0'); 
+```
+
+##1.5.6
 * 新增拼多多的分类查询接口
 ```dart
 DdTaokeSdk.instance.getPddCategory('0'); 

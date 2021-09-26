@@ -269,6 +269,10 @@ class MyApp extends StatelessWidget {
             MyButton('拼多多的分类查询',onTap: ()async {
               final result = await DdTaokeSdk.instance.getPddCategory('0');
               toJsonView(result);
+            },),
+            MyButton('京东的分类查询',onTap: ()async {
+              final result = await DdTaokeSdk.instance.getJdCategory(parentId: '0');
+              toJsonView(result);
             },)
           ],
         ),

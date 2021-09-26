@@ -1,15 +1,15 @@
 // To parse this JSON data, do
 //
-//     final pddCategory = pddCategoryFromJson(jsonString);
+//     final JdOrPddCategory = JdOrPddCategoryFromJson(jsonString);
 
 import 'dart:convert';
 
-List<PddCategory> pddCategoryFromJson(String str) => List<PddCategory>.from(json.decode(str).map((x) => PddCategory.fromJson(x)));
+List<JdOrPddCategory> JdOrPddCategoryFromJson(String str) => List<JdOrPddCategory>.from(json.decode(str).map((x) => JdOrPddCategory.fromJson(x)));
 
-String pddCategoryToJson(List<PddCategory> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String JdOrPddCategoryToJson(List<JdOrPddCategory> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class PddCategory {
-  PddCategory({
+class JdOrPddCategory {
+  JdOrPddCategory({
     required this.level,
     required this.name,
     required this.id,
@@ -21,7 +21,7 @@ class PddCategory {
   int id;
   int parentId;
 
-  factory PddCategory.fromJson(Map<String, dynamic> json) => PddCategory(
+  factory JdOrPddCategory.fromJson(Map<String, dynamic> json) => JdOrPddCategory(
     level: json["level"],
     name: json["name"],
     id: json["id"],

@@ -423,15 +423,35 @@ class DdTaokeSdk {
   ///
   /// 文档地址： 【https://www.dataoke.com/kfpt/api-d.html?id=82】
   ///
-  Future<List<PddCategory>> getPddCategory(String parentId,
+  Future<List<JdOrPddCategory>> getPddCategory(String parentId,
       {ApiError? error}) async {
     final response = await util.get('/pdd-category',
         data: {'parentId': parentId}, error: error);
     try {
-      return response.isEmpty ? [] : pddCategoryFromJson(response);
+      return response.isEmpty ? [] : JdOrPddCategoryFromJson(response);
     } catch (_) {
       error?.call(8000, '程序内部错误', null);
       return [];
     }
   }
+
+
+  /// 获取京东的分类数据
+  Future<List<JdOrPddCategory>> getJdCategory({String? parentId,String? level,ApiError? error}) async {
+    final param = <String, dynamic>{};
+    if(parentId!=null){
+      param['parentId'] = parentId;
+    }
+    if(level!=null){
+      param['level'] = level;
+    }
+    final response = await util.get('/jd-category',
+        data:param, error: error);
+    try {
+      return response.isEmpty ? [] : JdOrPddCategoryFromJson(response);
+    } catch (_) {
+    error?.call(8000, '程序内部错误', null);
+    return [];
+    }
+}
 }
