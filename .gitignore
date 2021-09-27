@@ -6,6 +6,8 @@
 
 build/
 example/
+android/
+example/
 .idea/
 .dart_tool/
 
