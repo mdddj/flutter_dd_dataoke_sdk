@@ -1,4 +1,7 @@
-#1.5.7
+#1.5.8
+* 修复iOS下的错误
+
+##1.5.7
 * 新增京东的分类查询接口
 ```dart
 DdTaokeSdk.instance.getJdCategory(parentId: '0'); 
