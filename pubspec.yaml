@@ -10,9 +10,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  dio: any
-  get: any
-  logger: any
+  dio: ^4.0.1
+  get: ^4.3.8
+  logger: ^1.1.0
 
   flutter_web_plugins:
     sdk: flutter
